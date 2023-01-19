@@ -1,4 +1,5 @@
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
@@ -19,6 +20,7 @@ fun Bullet(bulletData: BulletData) {
             .size(bulletSize)
             .rotate(bulletData.angle.toFloat())
             .clip(CircleShape)
-            .background(Color.Cyan)
+            .background(Color.Black)
+            .border(1.dp, Color.Red)
     )
 }

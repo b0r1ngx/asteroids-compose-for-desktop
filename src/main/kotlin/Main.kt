@@ -1,6 +1,7 @@
 import androidx.compose.desktop.Window
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.Text
@@ -11,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.pointer.pointerMoveFilter
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
@@ -54,8 +56,13 @@ fun main() = Window(size = IntSize(800, 900), title = "Asteroids for Desktop") {
                     }
                     false
                 })
-                .clickable() {
-                    game.ship.fire(game)
+//                .clickable {
+//                    game.ship.fire(game)
+//                }
+                .pointerInput(Unit) {
+                    detectTapGestures {
+                        game.ship.fire(game, it)
+                    }
                 }
                 .onSizeChanged {
                     with(density) {

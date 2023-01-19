@@ -1,3 +1,4 @@
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.offset
@@ -8,17 +9,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.imageFromResource
 import androidx.compose.ui.unit.dp
 
 @Composable
 fun Asteroid(asteroidData: AsteroidData) {
     val asteroidSize = asteroidData.size.dp
+    val asteroidPattern = Color(102, 102, 153)
     Box(
-        Modifier
+        modifier = Modifier
             .offset(asteroidData.xOffset, asteroidData.yOffset)
             .size(asteroidSize)
             .rotate(asteroidData.angle.toFloat())
             .clip(CircleShape)
-            .background(Color(102, 102, 153))
-    )
+            .background(asteroidPattern)
+    ) {
+//        Image(
+//            bitmap = imageFromResource("asteroid.png"),
+//            contentDescription = "Asteroid"
+//        )
+    }
 }

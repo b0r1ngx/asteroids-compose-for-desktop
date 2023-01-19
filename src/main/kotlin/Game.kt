@@ -59,13 +59,11 @@ class Game {
             gameObject.update(floatDelta, this)
         }
 
-
         val bullets = gameObjects.filterIsInstance<BulletData>()
 
         // Limit number of bullets at the same time
-        if (bullets.count() > 3) {
-            gameObjects.remove(bullets.first())
-        }
+        if (bullets.count() > 3) gameObjects.remove(bullets.first())
+
         val asteroids = gameObjects.filterIsInstance<AsteroidData>()
 
         // Bullet <-> Asteroid interaction
@@ -78,11 +76,15 @@ class Game {
                 if (asteroid.size < 50.0) return@forEach
                 // it's still pretty big, let's spawn some smaller ones
                 repeat(2) {
-                    gameObjects.add(AsteroidData(asteroid.speed * 2,
-                        Random.nextDouble() * 360.0,
-                        asteroid.position).apply {
-                        size = asteroid.size / 2
-                    })
+                    gameObjects.add(
+                        AsteroidData(
+                            speed = asteroid.speed * 2,
+                            angle = Random.nextDouble() * 360.0,
+                            position = asteroid.position
+                        ).apply {
+                            size = asteroid.size / 2
+                        }
+                    )
                 }
             }
         }
