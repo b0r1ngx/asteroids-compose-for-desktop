@@ -13,7 +13,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.unit.dp
 
-@Preview
 @Composable
 fun Ship(shipData: ShipData) {
     val shipSize = shipData.size.dp
