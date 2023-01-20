@@ -1,10 +1,9 @@
-import org.jetbrains.compose.compose
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.4.31"
-    id("org.jetbrains.compose") version "0.3.2"
+    kotlin("jvm") version "1.7.20"
+    id("org.jetbrains.compose") version "1.2.1"
 }
 
 group = "me.user"
@@ -18,10 +17,10 @@ repositories {
 
 dependencies {
     implementation(compose.desktop.currentOs)
-    implementation("org.openrndr:openrndr-math:0.3.47")
+    implementation("org.openrndr:openrndr-math:0.4.1")
 }
 
-tasks.withType<KotlinCompile>() {
+tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "11"
 }
 

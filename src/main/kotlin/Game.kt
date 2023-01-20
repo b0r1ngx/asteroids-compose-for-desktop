@@ -2,6 +2,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import org.openrndr.math.Vector2
@@ -21,7 +22,7 @@ class Game {
     var prevTime = 0L
     val ship = ShipData()
 
-    var targetLocation by mutableStateOf<DpOffset>(DpOffset.Zero)
+    var targetLocation by mutableStateOf(Offset.Zero)
 
     var gameObjects = mutableStateListOf<GameObject>()
     var gameState by mutableStateOf(GameState.RUNNING)
@@ -48,7 +49,7 @@ class Game {
 
         if (gameState == GameState.STOPPED) return
 
-        val cursorVector = Vector2(targetLocation.x.value.toDouble(), targetLocation.y.value.toDouble())
+        val cursorVector = Vector2(targetLocation.x.toDouble(), targetLocation.y.toDouble())
         val shipToCursor = cursorVector - ship.position
         val angle = atan2(y = shipToCursor.y, x = shipToCursor.x)
 

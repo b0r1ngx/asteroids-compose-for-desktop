@@ -32,7 +32,8 @@ class ShipData : GameObject() {
         )
         game.gameObjects.add(
             BulletData(
-                speed = (ship.speed + .5) * 4.0,
+                // suppose that gun that shoot always make velocity isn't a zero
+                speed = ship.speed * 4.0 + 1,
                 angle = ship.visualAngle,
                 position = positionInFrontOfShip
             )
