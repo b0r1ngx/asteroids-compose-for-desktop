@@ -20,7 +20,7 @@ fun Bullet(bulletData: BulletData) {
             .size(bulletSize)
             .rotate(bulletData.angle.toFloat())
             .clip(CircleShape)
-            .background(Color.Black)
+            .background(Color.Cyan)
             .border(1.dp, Color.Red)
     )
 }

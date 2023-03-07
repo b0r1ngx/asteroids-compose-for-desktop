@@ -67,9 +67,7 @@ fun main() = application {
                     .clipToBounds()
                     .onPointerEvent(PointerEventType.Move) {
                         val offset = it.changes.first().position
-                        with(density) {
-                            game.targetLocation = offset
-                        }
+                        game.targetLocation = offset
                     }
                     // compare .clickable / .pointerInput
                     .pointerInput(Unit) {
@@ -82,7 +80,8 @@ fun main() = application {
                             game.width = it.width.toDp()
                             game.height = it.height.toDp()
                         }
-                    }) {
+                    }
+                ) {
                     game.gameObjects.forEach {
                         when (it) {
                             is ShipData -> Ship(it)

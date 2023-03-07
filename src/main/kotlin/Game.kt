@@ -3,7 +3,6 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import org.openrndr.math.Vector2
 import kotlin.math.atan2
@@ -19,14 +18,15 @@ fun Vector2.angle(): Double {
 }
 
 class Game {
-    var prevTime = 0L
     val ship = ShipData()
-
+    var width by mutableStateOf(0.dp)
+    var height by mutableStateOf(0.dp)
     var targetLocation by mutableStateOf(Offset.Zero)
-
     var gameObjects = mutableStateListOf<GameObject>()
-    var gameState by mutableStateOf(GameState.RUNNING)
     var gameStatus by mutableStateOf("Let's play!")
+
+    private var prevTime = 0L
+    private var gameState by mutableStateOf(GameState.RUNNING)
 
     fun startGame() {
         gameObjects.clear()
@@ -34,9 +34,13 @@ class Game {
         ship.movementVector = Vector2.ZERO
         gameObjects.add(ship)
         repeat(3) {
-            gameObjects.add(AsteroidData().apply {
-                position = Vector2(100.0, 100.0); angle = Random.nextDouble() * 360.0; speed = 2.0
-            })
+            gameObjects.add(
+                AsteroidData(
+                    speed = 2.0,
+                    angle = Random.nextDouble() * 360.0,
+                    position = Vector2(100.0, 100.0)
+                )
+            )
         }
         gameState = GameState.RUNNING
         gameStatus = "Good luck!"
@@ -51,7 +55,6 @@ class Game {
 
         val cursorVector = Vector2(targetLocation.x.toDouble(), targetLocation.y.toDouble())
         val shipToCursor = cursorVector - ship.position
-        val angle = atan2(y = shipToCursor.y, x = shipToCursor.x)
 
         ship.visualAngle = shipToCursor.angle()
         ship.movementVector = ship.movementVector + (shipToCursor.normalized * floatDelta.toDouble())
@@ -63,7 +66,9 @@ class Game {
         val bullets = gameObjects.filterIsInstance<BulletData>()
 
         // Limit number of bullets at the same time
-        if (bullets.count() > 3) gameObjects.remove(bullets.first())
+        if (bullets.count() > 3) {
+            gameObjects.remove(bullets.first())
+        }
 
         val asteroids = gameObjects.filterIsInstance<AsteroidData>()
 
@@ -101,17 +106,14 @@ class Game {
         }
     }
 
-    fun endGame() {
+    private fun endGame() {
         gameObjects.remove(ship)
         gameState = GameState.STOPPED
         gameStatus = "Better luck next time!"
     }
 
-    fun winGame() {
+    private fun winGame() {
         gameState = GameState.STOPPED
         gameStatus = "Congratulations!"
     }
-
-    var width by mutableStateOf(0.dp)
-    var height by mutableStateOf(0.dp)
 }
