@@ -5,7 +5,6 @@ import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.withFrameMillis
 import androidx.compose.runtime.withFrameNanos
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -17,18 +16,23 @@ import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 
+// TODO:on Macbook navigating ship by mouse is broken
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() = application {
     Window(
         onCloseRequest = ::exitApplication,
-        state = rememberWindowState(size = DpSize(800.dp, 900.dp)),
+        state = rememberWindowState(
+            size = DpSize(
+                width = 800.dp,
+                height = 900.dp
+            )
+        ),
         title = "Asteroids for Desktop"
     ) {
         val game = remember { Game() }
@@ -41,8 +45,14 @@ fun main() = application {
             }
         }
 
-        Column(modifier = Modifier.background(Color(51, 153, 255)).fillMaxHeight()) {
-            Row(modifier = Modifier.align(Alignment.CenterHorizontally)) {
+        Column(
+            modifier = Modifier
+                .background(Color(51, 153, 255)).fillMaxHeight()
+        ) {
+            Row(
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+            ) {
                 Button({
                     game.startGame()
                 }) {
@@ -50,14 +60,18 @@ fun main() = application {
                 }
                 Text(
                     game.gameStatus,
-                    modifier = Modifier.align(Alignment.CenterVertically).padding(horizontal = 16.dp),
+                    modifier = Modifier
+                        .align(Alignment.CenterVertically)
+                        .padding(horizontal = 16.dp),
                     color = Color.White
                 )
             }
             Box(
                 modifier = Modifier
                     .aspectRatio(1.0f)
-                    .background(Color(0, 0, 30))
+                    .background(
+                        Color(0, 0, 30)
+                    )
                     .fillMaxWidth()
                     .fillMaxHeight()
             ) {

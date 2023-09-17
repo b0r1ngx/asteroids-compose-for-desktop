@@ -57,7 +57,7 @@ class Game {
         val shipToCursor = cursorVector - ship.position
 
         ship.visualAngle = shipToCursor.angle()
-        ship.movementVector = ship.movementVector + (shipToCursor.normalized * floatDelta.toDouble())
+        ship.movementVector += (shipToCursor.normalized * floatDelta.toDouble())
 
         for (gameObject in gameObjects) {
             gameObject.update(floatDelta, this)
@@ -65,7 +65,6 @@ class Game {
 
         val bullets = gameObjects.filterIsInstance<BulletData>()
 
-        // Limit number of bullets at the same time
         if (bullets.count() > 3) {
             gameObjects.remove(bullets.first())
         }
