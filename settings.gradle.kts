@@ -1,10 +1,15 @@
 pluginManagement {
     repositories {
-        gradlePluginPortal()
+        google {
+            mavenContent {
+                includeGroupAndSubgroups("androidx")
+                includeGroupAndSubgroups("com.android")
+                includeGroupAndSubgroups("com.google")
+            }
+        }
         mavenCentral()
-        maven { url = uri("https://maven.pkg.jetbrains.space/public/p/compose/dev") }
+        gradlePluginPortal()
     }
-    
 }
-rootProject.name = "asteroids-for-desktop"
 
+rootProject.name = "asteroids-for-desktop"

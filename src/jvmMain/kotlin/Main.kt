@@ -45,58 +45,47 @@ fun main() = application {
             }
         }
 
-        Column(
-            modifier = Modifier
-                .background(Color(51, 153, 255)).fillMaxHeight()
-        ) {
-            Row(
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
-            ) {
-                Button({
-                    game.startGame()
-                }) {
-                    Text("Play")
+        Column(modifier = Modifier.background(Color(51, 153, 255)).fillMaxHeight()) {
+            Row(modifier = Modifier.align(Alignment.CenterHorizontally)) {
+                Button({ game.startGame() }) {
+                    Text(text = "Play")
                 }
                 Text(
-                    game.gameStatus,
-                    modifier = Modifier
-                        .align(Alignment.CenterVertically)
-                        .padding(horizontal = 16.dp),
+                    text = game.gameStatus,
+                    modifier = Modifier.align(Alignment.CenterVertically).padding(horizontal = 16.dp),
                     color = Color.White
                 )
             }
             Box(
                 modifier = Modifier
                     .aspectRatio(1.0f)
-                    .background(
-                        Color(0, 0, 30)
-                    )
+                    .background(Color(0, 0, 30))
                     .fillMaxWidth()
                     .fillMaxHeight()
             ) {
-                Box(modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight()
-                    .clipToBounds()
-                    .onPointerEvent(PointerEventType.Move) {
-                        val offset = it.changes.first().position
-                        with(density) {
-                            game.targetLocation = Offset(offset.x.toDp().value, offset.y.toDp().value)
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight()
+                        .clipToBounds()
+                        .onPointerEvent(PointerEventType.Move) {
+                            val offset = it.changes.first().position
+                            with(density) {
+                                game.targetLocation = Offset(offset.x.toDp().value, offset.y.toDp().value)
+                            }
                         }
-                    }
-                    // compare .clickable / .pointerInput
-                    .pointerInput(Unit) {
-                        detectTapGestures {
-                            game.ship.fire(game, it)
+                        // compare .clickable / .pointerInput
+                        .pointerInput(Unit) {
+                            detectTapGestures {
+                                game.ship.fire(game, it)
+                            }
                         }
-                    }
-                    .onSizeChanged {
-                        with(density) {
-                            game.width = it.width.toDp()
-                            game.height = it.height.toDp()
+                        .onSizeChanged {
+                            with(density) {
+                                game.width = it.width.toDp()
+                                game.height = it.height.toDp()
+                            }
                         }
-                    }
                 ) {
                     game.gameObjects.forEach {
                         when (it) {

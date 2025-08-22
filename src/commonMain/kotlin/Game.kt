@@ -53,7 +53,7 @@ class Game {
 
         if (gameState == GameState.STOPPED) return
 
-        val cursorVector = Vector2(targetLocation.x.toDouble(), targetLocation.y.toDouble())
+        val cursorVector = targetLocation.toVector2()
         val shipToCursor = cursorVector - ship.position
 
         ship.visualAngle = shipToCursor.angle()
@@ -116,3 +116,5 @@ class Game {
         gameStatus = "Congratulations!"
     }
 }
+
+fun Offset.toVector2() = Vector2(x.toDouble(), y.toDouble())
