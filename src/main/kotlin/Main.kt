@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.onPointerEvent
@@ -22,7 +23,6 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 
-// TODO:on Macbook navigating ship by mouse is broken
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() = application {
     Window(
@@ -81,7 +81,9 @@ fun main() = application {
                     .clipToBounds()
                     .onPointerEvent(PointerEventType.Move) {
                         val offset = it.changes.first().position
-                        game.targetLocation = offset
+                        with(density) {
+                            game.targetLocation = Offset(offset.x.toDp().value, offset.y.toDp().value)
+                        }
                     }
                     // compare .clickable / .pointerInput
                     .pointerInput(Unit) {
