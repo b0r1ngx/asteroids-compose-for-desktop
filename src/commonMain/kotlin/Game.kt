@@ -30,9 +30,11 @@ class Game {
 
     fun startGame() {
         gameObjects.clear()
+
         ship.position = Vector2(width.value / 2.0, height.value / 2.0)
         ship.movementVector = Vector2.ZERO
         gameObjects.add(ship)
+
         repeat(3) {
             gameObjects.add(
                 AsteroidData(
@@ -45,6 +47,7 @@ class Game {
                 )
             )
         }
+
         gameState = GameState.RUNNING
         gameStatus = "Good luck!"
     }
