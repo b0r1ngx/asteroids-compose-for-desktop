@@ -36,9 +36,12 @@ class Game {
         repeat(3) {
             gameObjects.add(
                 AsteroidData(
-                    speed = 2.0,
+                    speed = Random.nextDouble(1.0, 5.0),
                     angle = Random.nextDouble() * 360.0,
-                    position = Vector2(100.0, 100.0)
+                    position = Vector2(
+                        x = Random.nextDouble() * width.value,
+                        y = Random.nextDouble() * height.value
+                    )
                 )
             )
         }
